@@ -10,7 +10,12 @@ response = sendRequest(uri,request)
 body = response.Body.Data.value
 
 
-data_bits = text2bin(body)
+data_bits = text2bin(body);
+
+[x_stairs, y_stairs] = stairs(data_bits);
+x_stairs = x_stairs - 1;
+
+time_value = [x_stairs, y_stairs];
 
 
 function response = sendRequest(uri,request)
