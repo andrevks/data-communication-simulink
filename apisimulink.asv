@@ -1,0 +1,59 @@
+clear 
+clc 
+close all 
+
+
+
+request = matlab.net.http.RequestMessage;
+uri = matlab.net.URI('https://api.chucknorris.io/jokes/random');
+response = sendRequest(uri,request)
+% body = response.Body.Data.value
+body = 	'IFMT';
+
+data_bits = text2bin(body);
+
+[x_stairs, y_stairs] = stairs(data_bits);
+x_stairs = x_stairs - 1;
+
+time_value = [x_stairs, y_stairs];
+
+
+delay = 0.2;
+delta = 0.8;
+lengthVector = length(data_bits);
+data_bits_recebidoBFSK = logicalTimes2VectorValue(BFSK_recebido, delay, delta, lengthVector)
+
+
+delay = 0.2;
+BFSK_recebido.Time = BFSK_recebido.Time + delay;
+
+
+data_bits_recebido = zeros(1,32);
+for j = 1:length(data_bits)
+        
+    delta = 0.8;
+    valueTime = (j - 1) + delay;
+    time2Get = BFSK_recebido.Time >= valueTime - delta  & BFSK_recebido.Time <= valueTime + delta;
+
+    bit = 0;
+    for i=1:length(time2Get)
+        if time2Get(i) == 1
+            bit = BFSK_recebido.Data(i)
+        end
+    end
+    data_bits_recebido(1,j) = bit;
+    
+     
+
+end
+
+
+for i=1:length(data_bits_recebido)
+        if data_bits(i) ~= data_bits_recebido(i)
+            i
+        end
+end
+
+bin2text(data_bits_recebido)
+
+
