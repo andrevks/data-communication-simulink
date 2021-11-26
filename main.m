@@ -6,9 +6,9 @@ close all
 
 request = matlab.net.http.RequestMessage;
 uri = matlab.net.URI('https://api.chucknorris.io/jokes/random');
-response = sendRequest(uri,request)
-% body = response.Body.Data.value
-body = 	'José Guilherme';
+response = sendRequest(uri,request);
+body = response.Body.Data.value
+%  body = 	'ab';
 
 data_bits = text2bin(body);
 
@@ -23,7 +23,7 @@ lengthVector = length(data_bits);
 sim('Comunicacao_Simulink_R2018b',lengthVector);
 
 delay = 0.2;
-delta = 0.8;
+delta = 0.08;
 
 
 data_bits_recebidoBFSK = logicalTimes2VectorValue(databits_simulink_BFSK, delay, delta, lengthVector);

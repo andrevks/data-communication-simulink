@@ -1,7 +1,7 @@
 function data_bits_recebido = logicalTimes2VectorValue(logicalTimes, delay, delta, lengthVector)
 
 
-    data_bits_recebido = zeros(1,32);
+    data_bits_recebido = zeros(1,lengthVector);
     for j = 1:lengthVector
 
        
